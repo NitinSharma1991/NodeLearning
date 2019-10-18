@@ -1,13 +1,37 @@
 var fs = require("fs");
 var https = require("https");
+const uri = require('url');
+const request = require('request-promise');
+const url = 'https://api.github.com/users';
+const ua = 'Mozilla/5.0 (Windows NT 6.1; rv:14.0) Gecko/20120405 Firefox/14.0a1';
 
 var options = {
-    host: "en.wikipedia.org",
-    path: "/wiki/George_Washington",
+    // host: "en.wikipedia.org",
+    host: uri.parse(url).host,
+    // path: "/wiki/George_Washington",
+    path: uri.parse(url).pathname,
     port: 443,
-    method: "GET"
+    method: "GET",
+    params: "optikalefx",
+    headers: {
+        'User-Agent': ua
+    }
 };
 
+let promise = async function main() {
+    try {
+        const res = await request.get({
+            url: `${url}/optikalefx`, method: 'GET', headers: {
+                'User-Agent': ua
+            }
+        });
+        return res;
+    } catch (e) {
+        console.log(e);
+    }
+};
+
+promise().then((message) => console.log(message));
 const getData = (callback) => {
 
     var req = https.request(options, function (res) {
@@ -37,7 +61,7 @@ new Promise((resolve, reject) => {
         else resolve(body);
     })
 }).then((message) => {
-    console.log(message)
+    // console.log(message)
 }).catch((err) => {
     console.log(err)
 });
