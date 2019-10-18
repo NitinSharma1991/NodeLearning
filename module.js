@@ -3,7 +3,7 @@ var https = require("https");
 
 var options = {
     host: "en.wikipedia.org",
-    path: "/wiki/George_Washington1",
+    path: "/wiki/George_Washington",
     port: 443,
     method: "GET"
 };
