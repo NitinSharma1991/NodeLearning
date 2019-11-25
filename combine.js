@@ -2,13 +2,13 @@ const http = require('http');
 
 function callAPI(id) {
     return new Promise((resolve, reject) => {
-        var options = {
+        const options = {
             host: 'example.com',
             path: '/q/result/' + id
-        }
+        };
 
         http.get(options, (res) => {
-            var body = [];
+            let body = [];
             res.on('data', (chunk) => {
                 body.push(chunk);
             }).on('end', () => {
